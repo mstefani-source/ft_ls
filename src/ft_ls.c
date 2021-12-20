@@ -5,11 +5,16 @@ int main(int argc, char** argv)
 {
 	int		num_of_args;
 	time_t	seconds;
+/* 	
 	char*	str;
 	
 	str = "iobtvauy";
-	argv = &str;
-	num_of_args = ft_parsarg(argc, argv);
+	argv = &str; 
+*/
+
+	ft_putstr(*argv);
+	
+	num_of_args = ft_parsarg(argc, *argv);
 
 	time(&seconds);
 	ft_putstr("\n");
