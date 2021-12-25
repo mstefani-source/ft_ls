@@ -20,7 +20,9 @@ add_library (libft SHARED libft/ft_putstr.c
 						libft/ft_putnbr.c
 						libft/ft_abs.c
 						libft/ft_strlen.c
-						libft/ft_putchar.c)
+						libft/ft_putchar.c
+						libft/ft_memcmp.c
+						libft/ft_strcmp.c)
 
 set_target_properties(libft PROPERTIES PREFIX "")
 set_target_properties(libft PROPERTIES OUTPUT_NAME "libft")

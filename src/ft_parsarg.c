@@ -1,28 +1,32 @@
 #include "ft_ls.h"
 #include "libft.h"
 
-int	ft_what_is_that(char* key)
+int	ft_option(char* key)
 {
-	if (*key == '-l')
-		return(0);
-	return(-1);
+	char* option = "-";
+	
+	if (!ft_memcmp(key, option, 1))
+		return(1);
+	return(0);
 }
 
 int ft_parsarg(int argc, char** string)
 {
 	int		key;
 
+	key = 0;
+	if (argc < 2)
+		return(key);
 	while (*string) 
-	{
-		ft_putstr(*string);
-		key = ft_what_is_that(*string);
+	{		
+		key = ft_option(*string);
+		if (key == 1)
+			ft_putstr("found a option\n");
 		if (key == 0)
-		{
-			printf("found a good key\n");
-		}
-		ft_putstr(" ");
+			ft_show_dir(*string);
+		if (key == -1)
+			return(-1);
 		string++;
-	}
-	
-	return(argc - 1);
+	}	
+	return(key);
 }
