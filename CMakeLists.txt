@@ -11,7 +11,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_definitions("-Wall" "-Werror" "-Wextra" "-g")
 
 add_executable(ft_ls src/ft_ls.c
-					src/ft_parsarg.c)
+					src/ft_parsarg.c
+					src/ft_list_all.c)
 
 target_include_directories(ft_ls PRIVATE libft includes) 
 
