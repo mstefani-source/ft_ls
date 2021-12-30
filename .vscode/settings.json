@@ -21,5 +21,9 @@
 	"terminal.ansiWhite":"#A6A28C",
 	"terminal.ansiYellow":"#AE9513",
 	"debugConsole.warningForeground": "#60AC39"
+	},
+	"files.associations": {
+		"ft_ls.h": "c",
+		"libft.h": "c"
 	}
 }

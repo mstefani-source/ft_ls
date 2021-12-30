@@ -20,7 +20,8 @@ add_definitions("-Wall" "-Werror" "-Wextra" "-g")
 
 add_executable(ft_ls src/ft_ls.c
 					src/ft_parsarg.c
-					src/ft_list_all.c)
+					src/ft_list_all.c
+					)
 
 target_include_directories(ft_ls PRIVATE libft includes) 
 
@@ -30,7 +31,8 @@ add_library (libft SHARED libft/ft_putstr.c
 						libft/ft_strlen.c
 						libft/ft_putchar.c
 						libft/ft_memcmp.c
-						libft/ft_strcmp.c)
+						libft/ft_strcmp.c
+						libft/ft_printf.c)
 
 set_target_properties(libft PROPERTIES PREFIX "")
 set_target_properties(libft PROPERTIES OUTPUT_NAME "libft")
