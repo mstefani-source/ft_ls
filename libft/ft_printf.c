@@ -19,12 +19,19 @@ void		ft_printf(char* format, ...)
 		else switch (*++c)
 		{
 		case 'd':
-			d = va_arg(factor, double);
+			d = va_arg(factor, int);
 			ft_putnbr(d);
 			break;
 		case 'f':
 			f = va_arg(factor, double);
 			printf("%.2lf", f);
+			break;
+		case 'l':
+			d = va_arg(factor, long);
+			ft_putnbr(d);
+			break;
+		case 's':
+			ft_putchar(*c);
 			break;
 		default:
 			ft_putchar(*c);
