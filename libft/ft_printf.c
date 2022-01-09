@@ -2,16 +2,19 @@
 
 void		ft_printf(char* format, ...)
 {
-	char* c;
-	int d; 
-    double f;
-    va_list factor;   		    // указатель на необязательный параметр
+	char*		c;
+	int			d; 
+    double		f;
+	unsigned	*str;				//	указатель на строку
 
-    va_start(factor, format);   // устанавливаем указатель factor на format
+    va_list 	arg_ptr;   		    // указатель на необязательный параметр
+
+    va_start(arg_ptr, format);   // устанавливаем указатель arg_ptr на format
 	c = format;
 
 	while(*c)
 	{
+		d = 1;
 		if(*c!='%')
 		{
 			ft_putchar(*c);
@@ -19,24 +22,25 @@ void		ft_printf(char* format, ...)
 		else switch (*++c)
 		{
 		case 'd':
-			d = va_arg(factor, int);
+			d = va_arg(arg_ptr, int);
 			ft_putnbr(d);
 			break;
 		case 'f':
-			f = va_arg(factor, double);
+			f = va_arg(arg_ptr, double);
 			printf("%.2lf", f);
 			break;
 		case 'l':
-			d = va_arg(factor, long);
+			d = va_arg(arg_ptr, long);
 			ft_putnbr(d);
 			break;
 		case 's':
-			ft_putchar(*c);
+			str = va_arg(arg_ptr, unsigned*);
+			ft_putstr((char*)str);
 			break;
 		default:
 			ft_putchar(*c);
 		}
 		c++;
 	} 
-	va_end(factor);
+	va_end(arg_ptr);
 }
