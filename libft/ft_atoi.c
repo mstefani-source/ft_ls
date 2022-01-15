@@ -3,37 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/12 18:58:58 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:58 by estel            ###   ########.fr       */
+/*   Created: 2019/09/11 20:25:41 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/23 21:15:45 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int		ft_atoi(const char *st)
 {
-	unsigned long long	n;
-	int					sign;
+	long int	ch;
+	int			sign;
 
-	n = 0;
+	ch = 0;
 	sign = 1;
-	while (*str && (((*str) >= 9 && (*str) <= 13) || *str == 32))
-		str++;
-	if (*str == '+' || *str == '-')
+	while (ft_ispace(*st))
+		st++;
+	if (*st == '-')
+		sign = -sign;
+	if (*st == '+' || *st == '-')
+		st++;
+	while (*st != '\0' && ft_isdigit(*st))
 	{
-		sign = (*str == '-') ? -1 : 1;
-		str++;
+		if ((ch == LONG_MAX / 10 && (*st - '0' > 7)) || (ch > LONG_MAX / 10))
+		{
+			if (sign > 0)
+				return (-1);
+			return (0);
+		}
+		ch = ch * 10 + (*st - '0');
+		st++;
 	}
-	while (ft_isdigit(*str))
-	{
-		n = n * 10 + (*str - '0');
-		str++;
-	}
-	if (n > (long long)9223372036854775807 && sign == 1)
-		return (-1);
-	if (n > (long long)9223372036854775807 && sign == -1)
-		return (0);
-	return ((int)(n * sign));
+	return (sign * ch);
 }

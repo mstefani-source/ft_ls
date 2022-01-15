@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_join_and_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/22 14:26:55 by mstefani          #+#    #+#             */
-/*   Updated: 2019/09/22 16:21:18 by mstefani         ###   ########.fr       */
+/*   Created: 2019/10/16 14:31:10 by mstefani          #+#    #+#             */
+/*   Updated: 2019/10/16 14:46:33 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+char	*ft_join_and_free(char **s1, char const *s2)
 {
-	char	*str;
-	int		len;
-	int		i;
+	int		size_of_newline;
+	char	*new_line;
+	int		lens1;
+	int		lens2;
+	char	*l;
 
-	if (s == NULL)
+	if (*s1 == 0 || s2 == 0)
 		return (NULL);
-	len = ft_strlen(s);
-	while (s[len - 1] == ' ' || s[len - 1] == '\n' || s[len - 1] == '\t')
-		len--;
-	i = -1;
-	while (s[++i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		len--;
-	if (len <= 0)
-		len = 0;
-	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
+	l = *s1;
+	lens1 = ft_strlen(*s1);
+	lens2 = ft_strlen(s2);
+	size_of_newline = lens1 + lens2;
+	new_line = ft_memalloc(size_of_newline + 1);
+	if (!new_line)
 		return (NULL);
-	s += i;
-	i = -1;
-	while (++i < len)
-		str[i] = *s++;
-	str[i] = '\0';
-	return (str);
+	ft_strlcat(new_line, *s1, lens1 + 1);
+	ft_strlcat(new_line, s2, size_of_newline + 1);
+	free(l);
+	*s1 = new_line;
+	return (*s1);
 }

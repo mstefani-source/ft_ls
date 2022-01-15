@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_min.c                                           :+:      :+:    :+:   */
+/*   ft_leni.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/15 20:22:06 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:58 by estel            ###   ########.fr       */
+/*   Created: 2019/09/13 16:11:50 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/13 19:29:16 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int		ft_min(int a, int b)
+int		ft_leni(long long int n)
 {
-	return ((a < b) ? a : b);
+	int		res;
+
+	res = 0;
+	if (n < 0)
+	{
+		n = -n;
+		res++;
+	}
+	if (n == 0)
+		return (++res);
+	while (n != 0)
+	{
+		n = n / 10;
+		res++;
+	}
+	return (res);
 }

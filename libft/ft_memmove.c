@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/04 17:33:44 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:59 by estel            ###   ########.fr       */
+/*   Created: 2019/09/15 23:22:14 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/22 16:12:10 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t i;
+	char	*ddst;
+	char	*dsrc;
 
-	if (!src && !dst)
+	if ((dst == src) || (len == 0))
 		return (dst);
-	if (src > dst || (src + len) < dst)
+	ddst = (char*)dst;
+	dsrc = (char*)src;
+	if (ddst > dsrc)
 	{
-		i = -1;
-		while (++i < len)
-			((unsigned char*)dst)[i] = ((unsigned char *)src)[i];
+		ddst = ddst + len - 1;
+		dsrc = dsrc + len - 1;
+		while (len)
+		{
+			*ddst-- = *dsrc--;
+			len--;
+		}
+		return (dst);
 	}
-	else
-	{
-		while (len--)
-			((unsigned char*)dst)[len] = ((unsigned char *)src)[len];
-	}
+	while (len--)
+		*ddst++ = *dsrc++;
 	return (dst);
 }

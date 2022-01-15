@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/11 17:13:44 by mstefani          #+#    #+#             */
-/*   Updated: 2020/11/15 13:45:21 by mstefani         ###   ########.fr       */
+/*   Created: 2019/09/03 19:37:31 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/04 15:28:43 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+int		ft_sqrt(int nb)
 {
-	unsigned char	*idst;
-	unsigned char	*isrc;
-	unsigned char	ch;
-	size_t			i;
+	int i;
 
-	idst = (unsigned char*)dst;
-	isrc = (unsigned char*)src;
-	ch = (unsigned char)c;
 	i = 0;
-	while (i <= n)
+	if (nb > 2147395600 || nb < 0)
+		return (0);
+	while (i <= 46340)
 	{
-		*idst = isrc[i];
-		if (isrc[i] == ch)
-			return (++idst);
+		if (i * i == nb)
+		{
+			return (i);
+		}
 		i++;
-		idst++;
 	}
-	return (NULL);
+	return (0);
 }

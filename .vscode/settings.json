@@ -25,6 +25,7 @@
 	"files.associations": {
 		"ft_ls.h": "c",
 		"libft.h": "c",
-		"limits.h": "c"
+		"limits.h": "c",
+		"get_next_line.h": "c"
 	}
 }

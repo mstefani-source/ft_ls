@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/12 17:03:27 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:59 by estel            ###   ########.fr       */
+/*   Created: 2019/09/19 18:26:41 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/23 13:41:43 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,24 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t i;
-	size_t j;
+	unsigned int i;
+	unsigned int pos;
 
-	i = 0;
 	if (!(*needle))
-		return ((char *)haystack);
-	while (haystack[i] && i < len)
+		return ((char*)haystack);
+	pos = 0;
+	while (haystack[pos] != '\0' && (size_t)pos < len)
 	{
-		j = 0;
-		if (haystack[i] == needle[j])
+		if (haystack[pos] == needle[0])
 		{
-			while (needle[j] && (i + j < len))
-			{
-				if (haystack[i + j] != needle[j])
-					break ;
-				j++;
-			}
-			if (needle[j] == '\0')
-				return ((char *)haystack + i);
+			i = 1;
+			while (needle[i] != '\0' && haystack[pos + i] == needle[i]
+					&& (size_t)pos + i < len)
+				i++;
+			if (needle[i] == '\0')
+				return ((char*)&haystack[pos]);
 		}
-		i++;
+		pos++;
 	}
-	return (NULL);
+	return (0);
 }

@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_listbackadd.c                                   :+:      :+:    :+:   */
+/*   ft_recursive_factorial.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/15 15:39:09 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:59 by estel            ###   ########.fr       */
+/*   Created: 2019/09/03 18:14:25 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/23 16:22:08 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstbackadd(t_list **alst, t_list *new)
+int		ft_factorial(int nb)
 {
-	t_list *last;
+	int next;
 
-	if (alst && *alst)
-	{
-		last = *alst;
-		while (last->next)
-			last = last->next;
-		last->next = new;
-	}
-	else
-		*alst = new;
+	next = nb - 1;
+	if (nb < 0 || nb > 12)
+		return (0);
+	if (nb == 0)
+		return (1);
+	nb = nb * ft_factorial(next);
+	return (nb);
 }

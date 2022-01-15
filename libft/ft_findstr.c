@@ -1,31 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_findstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mstefani <mstefani@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/17 15:19:48 by mstefani          #+#    #+#             */
-/*   Updated: 2019/09/23 13:49:19 by mstefani         ###   ########.fr       */
+/*   Created: 2022/01/15 19:46:28 by mstefani          #+#    #+#             */
+/*   Updated: 2022/01/15 09:18:58 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
-{
-	char *last_c;
-
-	last_c = 0;
-	while (*s)
-	{
-		if (*s == (char)c)
-			last_c = (char*)s;
-		s++;
-	}
-	if (last_c)
-		return (last_c);
-	if (c == '\0')
-		return ((char*)s);
-	return (0);
-}
