@@ -3,81 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/06 14:49:06 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:59 by estel            ###   ########.fr       */
+/*   Created: 2019/09/15 16:03:21 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/23 15:51:06 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count_words(char *s, char c)
+static int	ft_word_num(char const *s, char c)
 {
-	int res;
+	int	i;
+	int	count;
+
+	if (s[0] == '\0')
+		return (0);
+	count = 0;
+	if (s[0] != c)
+		count++;
+	i = 1;
+	while (s[i] != '\0')
+	{
+		if (s[i - 1] == c && s[i] != c)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+static int	ft_len(const char *s, char c)
+{
+	int len;
+
+	len = 0;
+	while (s[len] != '\0' && s[len] != c)
+		len++;
+	return (len);
+}
+
+static char	**ft_tabledel(char **ret, int len)
+{
 	int i;
 
-	res = 0;
 	i = 0;
-	while (*s)
-	{
-		if (*s == c && i == 1)
-			i = 0;
-		if (*s != c && i == 0)
-		{
-			i = 1;
-			res++;
-		}
-		s++;
-	}
-	return (res);
-}
-
-static int	ft_count_wordlen(char *s, char c)
-{
-	int res;
-
-	res = 0;
-	while (*s && *s != c)
-	{
-		res++;
-		s++;
-	}
-	return (res);
-}
-
-static void	ft_free(char **w, size_t n)
-{
-	while (n--)
-		ft_strdel(&w[n]);
-	free(*w);
+	while (i < len)
+		free(ret[i]);
+	free(ret);
+	return (NULL);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	char	**word;
-	size_t	w;
-	size_t	i;
+	char	**tab;
+	int		word_num;
+	int		i;
+	int		j;
 
-	if (!s)
+	if (s == NULL)
 		return (NULL);
-	w = ft_count_words((char *)s, c);
-	if (!(word = (char **)malloc(sizeof(*word) * (w + 1))))
+	word_num = ft_word_num(s, c);
+	if (!(tab = (char**)malloc(sizeof(char*) * (word_num + 1))))
 		return (NULL);
 	i = 0;
-	while (i < w)
+	j = 0;
+	while (i < word_num)
 	{
-		while (*s == c && *s)
-			s++;
-		if (!(word[i] = ft_strsub((char *)s, 0,
-				ft_count_wordlen((char *)s, c))))
-		{
-			ft_free(word, i);
-			return (NULL);
-		}
-		s = s + ft_count_wordlen((char *)s, c);
+		while (s[j] != '\0' && s[j] == c)
+			j++;
+		tab[i] = ft_strsub(s, j, ft_len(s + j, c));
+		if (tab[i] == NULL)
+			return (ft_tabledel(tab, i));
+		while (s[j] != '\0' && s[j] != c)
+			j++;
 		i++;
 	}
-	word[i] = NULL;
-	return (word);
+	tab[i] = NULL;
+	return (tab);
 }

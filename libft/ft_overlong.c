@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lenint.c                                        :+:      :+:    :+:   */
+/*   ft_overlong.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/14 19:46:28 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:58 by estel            ###   ########.fr       */
+/*   Created: 2019/09/13 14:44:38 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/22 16:12:40 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_lenint(int n)
+int		ft_overlong(long int d, int sign, char c)
 {
-	int i;
-
-	i = (n > 0) ? 0 : 1;
-	while (n)
+	if (((d == (LONG_MAX / 10)) && (c - '0') > 7) || d > (LONG_MAX / 10))
 	{
-		i++;
-		n = n / 10;
+		if (sign > 0)
+			return (-1);
+		return (0);
 	}
-	return (i);
+	return (0);
 }

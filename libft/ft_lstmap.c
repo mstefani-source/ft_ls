@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/15 14:22:55 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:58 by estel            ###   ########.fr       */
+/*   Created: 2019/09/22 18:26:03 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/23 12:42:22 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list *begin;
-	t_list *elf;
+	t_list	*ret;
+	t_list	*ret_last;
 
-	begin = NULL;
-	if (f)
+	if (lst == 0 || (*f) == 0)
+		return (NULL);
+	ret_last = f(lst);
+	ret = ret_last;
+	if (ret == NULL)
+		return (NULL);
+	while (lst->next)
 	{
-		while (lst)
-		{
-			elf = f(lst);
-			if (begin)
-				ft_lstbackadd(&begin, elf);
-			else
-				begin = elf;
-			lst = lst->next;
-		}
+		lst = lst->next;
+		ret_last->next = f(lst);
+		if (ret_last->next == NULL)
+			return (NULL);
+		ret_last = ret_last->next;
 	}
-	return (begin);
+	return (ret);
 }

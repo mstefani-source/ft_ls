@@ -3,78 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <mstefani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/18 15:16:45 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:59 by estel            ###   ########.fr       */
+/*   Created: 2019/10/09 18:10:28 by mstefani          #+#    #+#             */
+/*   Updated: 2019/10/16 12:10:54 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_enter(char **ost, char **line)
+char			*ft_remove_n(char **chr)
 {
-	char	*s;
 	int		i;
 	char	*tmp;
+	char	*ttmp;
+	int		chrlen;
 
-	s = *ost;
 	i = 0;
-	while (s[i] != '\n')
-		if (!(s[i++]))
-			return (0);
-	s[i] = '\0';
-	i++;
-	*line = ft_strdup(*ost);
-	tmp = ft_strdup(s + i);
-	free(*ost);
-	*ost = ft_strdup(tmp);
-	free(tmp);
-	tmp = NULL;
-	return (1);
+	chrlen = ft_strlen(*chr);
+	while ((*chr)[i] != '\0' && (*chr)[i] != '\n')
+		i++;
+	if ((*chr)[i] == '\0' && chrlen != 0)
+	{
+		tmp = ft_strsub(*chr, 0, i);
+		ft_strdel(chr);
+		return (tmp);
+	}
+	tmp = ft_strsub(*chr, 0, i);
+	ttmp = ft_strdup(*chr + i + 1);
+	ft_strdel(chr);
+	*chr = ttmp;
+	return (tmp);
 }
 
-static int	ft_read_gnl(int fd, char *s, char **ost, char **line)
+int				get_next_line(const int fd, char **line)
 {
-	int		i;
+	char		buf[BUFF_SIZE + 1];
+	ssize_t		ret;
+	static char	*chr[8192];
 
-	while ((i = read(fd, s, BUFF_SIZE)) > 0)
+	if (fd < 0 || line == NULL)
+		return (-1);
+	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
-		ft_bzero(s + i, BUFF_SIZE - i);
-		if (*ost != NULL)
-			*ost = ft_strjoinfree(*ost, s, 1);
+		buf[ret] = '\0';
+		if (!chr[fd])
+			chr[fd] = ft_strdup(buf);
 		else
-			*ost = ft_strdup(s);
-		if (ft_enter(ost, line))
+			chr[fd] = ft_strjoin(chr[fd], buf);
+		if (ft_strchr(buf, '\n') || (ret < BUFF_SIZE))
 			break ;
 	}
-	return ((i > 0) ? 1 : i);
-}
-
-int			get_next_line(const int fd, char **line)
-{
-	static char	*ost[1024] = {NULL};
-	char		*s;
-	int			i;
-
-	if ((fd < 0 || fd > 1024) || !line || read(fd, NULL, 0) < 0
-		|| !(s = ft_strnew(BUFF_SIZE)))
+	if (!chr[fd] || (ret == 0 && ft_strlen(chr[fd]) == 0))
+		return (0);
+	if (ret < 0)
 		return (-1);
-	if (ost[fd] && ost[fd][0])
-		if (ft_enter(&ost[fd], line))
-		{
-			ft_strdel(&s);
-			return (1);
-		}
-	i = ft_read_gnl(fd, s, &ost[fd], line);
-	ft_strdel(&s);
-	if (!ost[fd] || i || !ost[fd][0])
-	{
-		if (*line && !i)
-			*line = NULL;
-		return (i);
-	}
-	*line = ost[fd];
-	ost[fd] = NULL;
+	*line = ft_remove_n(&chr[fd]);
 	return (1);
 }

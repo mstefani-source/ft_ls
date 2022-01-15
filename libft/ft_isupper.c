@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrev.c                                        :+:      :+:    :+:   */
+/*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/15 19:56:48 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:59 by estel            ###   ########.fr       */
+/*   Created: 2019/09/16 17:00:57 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/16 17:34:11 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-
-void	ft_strrev(char *s)
+int		ft_isupper(int c)
 {
-	size_t	i;
-	size_t	n;
-	char	c;
-
-	if (!s)
-		return ;
-	n = ft_strlen(s) - 1;
-	i = 0;
-	while (i < n)
-	{
-		c = s[i];
-		s[i] = s[n];
-		s[n] = c;
-		i++;
-		n--;
-	}
+	if (c >= 65 && c <= 90)
+		return (1);
+	return (0);
 }

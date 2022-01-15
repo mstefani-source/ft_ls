@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_max.c                                           :+:      :+:    :+:   */
+/*   ft_ispace.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdirect <mdirect@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mstefani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/15 20:18:35 by mdirect           #+#    #+#             */
-/*   Updated: 2020/06/25 09:18:58 by estel            ###   ########.fr       */
+/*   Created: 2019/09/11 23:01:46 by mstefani          #+#    #+#             */
+/*   Updated: 2019/09/22 22:44:02 by mstefani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_max(int a, int b)
+int		ft_ispace(char ch)
 {
-	return ((a > b) ? a : b);
+	if (ch == ' ')
+		return (1);
+	if (ch == '\t')
+		return (1);
+	if (ch == '\n')
+		return (1);
+	if (ch == '\v')
+		return (1);
+	if (ch == '\r')
+		return (1);
+	if (ch == '\f')
+		return (1);
+	return (0);
 }
